@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyckel.Core", "Nyckel.Core\Nyckel.Core.csproj", "{DFE387A3-7D2C-47DD-B8C1-75A1542F285F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyckel.UI", "Nyckel.UI\Nyckel.UI.csproj", "{0EA328B4-2026-4B11-B899-5BDDC6856985}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyckel.Tests", "Nyckel.Tests\Nyckel.Tests.csproj", "{80468790-6BCB-4753-9E11-C25B7C594820}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFE387A3-7D2C-47DD-B8C1-75A1542F285F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE387A3-7D2C-47DD-B8C1-75A1542F285F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE387A3-7D2C-47DD-B8C1-75A1542F285F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE387A3-7D2C-47DD-B8C1-75A1542F285F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EA328B4-2026-4B11-B899-5BDDC6856985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EA328B4-2026-4B11-B899-5BDDC6856985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EA328B4-2026-4B11-B899-5BDDC6856985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EA328B4-2026-4B11-B899-5BDDC6856985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80468790-6BCB-4753-9E11-C25B7C594820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80468790-6BCB-4753-9E11-C25B7C594820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80468790-6BCB-4753-9E11-C25B7C594820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80468790-6BCB-4753-9E11-C25B7C594820}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
