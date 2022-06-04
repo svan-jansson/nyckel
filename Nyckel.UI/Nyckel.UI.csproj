@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OneOf.Monads" Version="1.15.0" />
+  </ItemGroup>
+
 </Project>
