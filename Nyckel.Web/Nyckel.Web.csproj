@@ -14,4 +14,8 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nyckel.Core\Nyckel.Core.csproj" />
+  </ItemGroup>
+
 </Project>

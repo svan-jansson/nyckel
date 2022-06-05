@@ -1,0 +1,115 @@
+﻿@page "/records"
+@using System.ComponentModel.DataAnnotations
+@inject INyckel nyckel
+
+<PageTitle>Nyckel - Records</PageTitle>
+
+<h1>Records</h1>
+
+<hr />
+
+<div class="card">
+    <div class="card-header">
+        Add / Update Record
+    </div>
+    <EditForm Model="@entry" OnValidSubmit="@HandleValidSubmit">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="Key">Key</label>
+                <InputText @bind-Value=entry.Key class="form-control" id="Key" />
+            </div>
+            <div class="form-group">
+                <label for="Value">Value</label>
+                <InputTextArea @bind-Value=entry.Value class="form-control" id="Value" />
+            </div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" class="btn btn-primary float-end" style="margin: 1em;" value="Save"/>
+
+        </div>
+    </EditForm>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <th>Key</th>
+        <th>Value</th>
+        <th align="right"></th>
+    </thead>
+
+    <tbody>
+     @foreach (var record in records) {
+         <tr>
+             <td>
+                 <code>
+                     @record.Key
+                 </code>
+             </td>
+             <td>
+                 <pre>
+                     @record.Value
+                 </pre>
+             </td>
+             <td align="right">
+                 <button class="btn btn-sm btn-secondary" @onclick="() => Edit(record)">Edit</button>
+                 <button class="btn btn-sm btn-danger" @onclick="() => Delete(record)">Delete</button>
+             </td>
+         </tr>
+      }
+      </tbody>
+</table>
+
+@code {
+    Dictionary<string, string> records = new();
+    Entry entry = new();
+
+    class Entry
+    {
+        [Required]
+        public string Key { get; set; }
+
+        [Required]
+        public string Value { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        LoadRecords();
+    }
+
+    void Edit(KeyValuePair<string, string> record)
+    {
+        entry = new Entry { Key = record.Key, Value = record.Value };
+    }
+
+    void Delete(KeyValuePair<string, string> record)
+    {
+        nyckel
+            .Delete(Key.Create(record.Key))
+            .Do(_ => LoadRecords());
+    }
+
+    void LoadRecords()
+    {
+        records.Clear();
+
+        nyckel.Map((key, value) =>
+        {
+            records.Add(key.Get(), value.Get<string>());
+
+            return true;
+        });
+    }
+
+    void HandleValidSubmit()
+    {
+        nyckel
+            .Set(Key.Create(entry.Key), Value.Create(entry.Value))
+            .Do(_ =>
+            {
+                LoadRecords();
+                entry = new();
+            });
+    }
+}
