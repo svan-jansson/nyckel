@@ -16,6 +16,8 @@ namespace Nyckel.Web
         }
 
         public int Count() => _implementation.Count();
+        public Dictionary<string, string> Info() => _implementation.Info();
+
         public INyckel Map(Func<Key, Value, bool> mapContinue)
             => _implementation.Map(mapContinue);
 

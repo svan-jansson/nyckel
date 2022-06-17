@@ -10,4 +10,5 @@ public interface INyckel
     public Option<Value> Delete(Key key);
     public INyckel Map(Func<Key, Value, bool> mapContinue);
     public int Count();
+    public Dictionary<string, string> Info();
 }

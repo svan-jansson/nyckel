@@ -82,6 +82,8 @@ public class InMemory : INyckel, IDisposable
 
     public int Count() => _cache.Count;
 
+    public Dictionary<string, string> Info() => new Dictionary<string, string>();
+
     public void Dispose()
     {
         _cache.Dispose();
@@ -89,4 +91,5 @@ public class InMemory : INyckel, IDisposable
 
     private static MemoryCacheEntryOptions NeverExpire() 
         => new MemoryCacheEntryOptions { Priority = CacheItemPriority.NeverRemove };
+
 }
