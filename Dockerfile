@@ -8,8 +8,10 @@ WORKDIR /src
 COPY . .
 RUN dotnet restore
 
+RUN dotnet test
+
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish ./Nyckel.Web/Nyckel.Web.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
