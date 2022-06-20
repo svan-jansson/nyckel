@@ -1,5 +1,6 @@
 using Nyckel.Core;
 using Nyckel.Web;
+using Nyckel.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,16 +16,9 @@ builder.Services.AddSingleton<INyckel>(provider =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-}
-
+app.UseNyckelApi();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
