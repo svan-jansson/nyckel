@@ -78,7 +78,7 @@ public class InMemory : INyckel, IDisposable
             }
 
             return this;
-        }).Unwrap(_ => this);
+        }).DefaultWith(_ => this);
 
     public int Count() => _cache.Count;
 

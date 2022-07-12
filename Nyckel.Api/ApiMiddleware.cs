@@ -21,37 +21,36 @@ namespace Nyckel.Api
         {
             if (context.Request.Path.StartsWithSegments("/api"))
             {
-                var method = GetMethod(context);
-                var key = GetKey(context);
-                var value = await GetValue(context);
+                var methodOption = GetMethod(context);
+                var keyOption = GetKey(context);
+                var valueOption = await GetValue(context);
 
-                if (method.IsNone() || key.IsNone() || value.IsNone())
-                {
-                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                }
-                else
-                {
-                    method
-                        .Bind(method => method switch
+                await methodOption
+                    .Merge(keyOption)
+                    .Merge(valueOption)
+                    .DoIfNone(() => { context.Response.StatusCode = (int)HttpStatusCode.BadRequest; })
+                    .Bind(group => group.Item1 switch
                         {
-                            "GET" => _nyckel.Get(key.Value()),
-                            "POST" => _nyckel.Set(key.Value(), value.Value()),
-                            "DELETE" => _nyckel.Delete(key.Value()),
+                            "GET" => _nyckel.Get(group.Item2),
+                            "POST" => _nyckel.Set(group.Item2, group.Item3),
+                            "DELETE" => _nyckel.Delete(group.Item2),
                             _ => new None()
                         })
-                        .Switch(
-                            _ =>
-                            {
-                                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                            },
-                            async some =>
-                            {
-                                context.Response.ContentType = "text/plain";
-                                context.Response.StatusCode = (int)HttpStatusCode.OK;
-                                await context.Response.WriteAsync(some.Value.Get<string>());
-                            }
-                        );
-                }
+                    .Fold(
+                        () =>
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                            return Task.CompletedTask;
+                        },
+                        async some =>
+                        {
+                            context.Response.ContentType = "text/plain";
+                            context.Response.StatusCode = (int)HttpStatusCode.OK;
+                            await context.Response.WriteAsync(some.Get<string>());
+                        }
+                    );
+
+                
             }
             else
             {

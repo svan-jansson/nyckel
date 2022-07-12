@@ -98,7 +98,7 @@ public class LiteDb : INyckel, IDisposable
             }
 
             return this;
-        }).Unwrap(_ => this);
+        }).DefaultWith(_ => this);
 
     public int Count() => Records().Count();
 
